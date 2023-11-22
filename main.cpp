@@ -1,49 +1,39 @@
 #include <SFML/Graphics.hpp>
-#include "game.hpp"
-
+#include "game.cpp"
+#include<vector>
 #define N 192
 #define M 108
 
 using namespace std;
 
 
-void display( int mat[N][M],sf::RenderWindow &w){
-    sf::RectangleShape carre (sf::Vector2f(10, 10));
-    
-
-    for(int i =0;i<N;i++){
-        for(int j=0;j<N;j++){
-            if (mat[i][j]==1){
-                carre.setPosition(10*i, 10*j);
-                w.draw(carre);
-
-            }
-            }
-    }
-}
-
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
-    sf::RectangleShape rectangle (sf::Vector2f(10, 10));
-    int mod = 1;
+    sf::Clock clock;
+
+    int mod = 0;
+    int periode =1;
 
     Game game;
+    float lastupdate= 0;
 
-    int mat[N][M]={0};
+    game.Set_Map_Element(63,64,1);
+    game.Set_Map_Element(64,64,1);
+    game.Set_Map_Element(65,64,1);
+    game.Set_Map_Element(65,65,1);
+    game.Set_Map_Element(66,65,1);
+    game.Set_Map_Element(66,66,1);
+    game.Set_Map_Element(66,67,1);
 
-    for(int i =0;i<N;i++){
-        for(int j =0;j<M;j++){
-            if(i-j==0){
-                mat[i][j]=1;
-            }
-        }}
-
+    game.Set_Map_Element(86,65,1);
+    game.Set_Map_Element(87,65,1);
+    game.Set_Map_Element(88,65,1);
     
 
     while (window.isOpen())
     {
-        
+        sf::Time elapsed = clock.getElapsedTime();
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -52,10 +42,14 @@ int main()
         }
 
         window.clear();
-        mod *= -1;
+        
+        game.Display(window);
 
-    
-        display(mat,window);
+        if((((int)elapsed.asSeconds())%periode==0)&&(elapsed.asSeconds()-lastupdate>=1)){
+            game.Update();
+            lastupdate=elapsed.asSeconds();
+        }
+        
         window.display();
     }
 
