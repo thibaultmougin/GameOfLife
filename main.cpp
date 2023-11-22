@@ -1,17 +1,21 @@
 #include <SFML/Graphics.hpp>
 #include "game.hpp"
-#include <vector>
 
-#define N 128
+#define N 192
+#define M 108
+
 using namespace std;
 
-void display( vector<vector<int>>& mat,sf::RenderWindow &w){
-    sf::RectangleShape carre (sf::Vector2f(8, 8));
-    for(int i =0;i++;i<N){
-        for(int j=0;j++;j<N){
-            if (mat[i][j]){
-            carre.setPosition(100.f+i*8.f, 100.f+j*8.f);
-            w.draw(carre);
+
+void display( int mat[N][M],sf::RenderWindow &w){
+    sf::RectangleShape carre (sf::Vector2f(10, 10));
+    
+
+    for(int i =0;i<N;i++){
+        for(int j=0;j<N;j++){
+            if (mat[i][j]==1){
+                carre.setPosition(10*i, 10*j);
+                w.draw(carre);
 
             }
             }
@@ -21,18 +25,19 @@ void display( vector<vector<int>>& mat,sf::RenderWindow &w){
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
-    sf::RectangleShape rectangle (sf::Vector2f(8, 8));
+    sf::RectangleShape rectangle (sf::Vector2f(10, 10));
     int mod = 1;
 
     Game game;
 
-    vector<vector<int> > mat;
+    int mat[N][M]={0};
 
-    for(int i =0;i+=4;i<N){
-        for(int j = 0;j+=4;j<N){
-            mat[i][j] = 1;
-        }
-    }
+    for(int i =0;i<N;i++){
+        for(int j =0;j<M;j++){
+            if(i-j==0){
+                mat[i][j]=1;
+            }
+        }}
 
     
 
@@ -49,12 +54,7 @@ int main()
         window.clear();
         mod *= -1;
 
-        rectangle.setPosition(10.f, 50.f);
-        window.draw(rectangle);
-
-        rectangle.setPosition(1080.f, 540.f);
-        
-        window.draw(rectangle);
+    
         display(mat,window);
         window.display();
     }

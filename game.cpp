@@ -3,12 +3,12 @@
 #include <vector>
 
 using namespace std;
-#define N 128
-
+#define N 192
+#define M 108
 
 class Game{
     private:
-        int map[N][N];
+        int map[N][M];
 
 
     public: 
