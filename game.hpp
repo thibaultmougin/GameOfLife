@@ -1,8 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#define N 192
-#define M 108
+#define N 96
+#define M 54
+#define C 20
 class Game {
     private:
         int map[N][M];
@@ -18,7 +19,8 @@ class Game {
         void Update();
         int Get_setup_mode();
         void Set_setup_mode(int val);
-        void SetUp();
         void Reset();
+        void SaveMap()
+
 
 };

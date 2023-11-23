@@ -20,17 +20,22 @@ int main()
     }
 
     sf::Text text;
+    sf::Text infos;
 
     // select the font
     text.setFont(boldfont); // font is a sf::Font
+    infos.setFont(boldfont);
 
     // set the string to display
     text.setString("Setup Mode ON");
+    infos.setString("Spacebar to clear\nS to save pattern\nL to load pattern");
 
     // set the character size
-    text.setCharacterSize(32); // in pixels, not points!
+    text.setCharacterSize(24); // in pixels, not points!
+    infos.setCharacterSize(16); // in pixels, not points!
 
-    text.setPosition(32,32);
+    text.setPosition(20,14);
+    infos.setPosition(20,938);
 
     int mod = 0;
     int periode =1;
@@ -41,6 +46,7 @@ int main()
     
     
     game.Set_setup_mode(1);
+
 
     while (window.isOpen())
     {
@@ -65,6 +71,12 @@ int main()
                     }
                     if ((game.Get_setup_mode())&& (event.key.code == sf::Keyboard::Space)){
                         game.Reset();
+                    }
+                    if ((game.Get_setup_mode())&& (event.key.code == sf::Keyboard::S)){
+                        game.SaveMap();
+                    }
+                    if ((game.Get_setup_mode())&& (event.key.code == sf::Keyboard::L)){
+                        game.LoadMap();
                     }
                 }
             if ((event.type == sf::Event::MouseButtonPressed)&&(game.Get_setup_mode())){
@@ -94,7 +106,7 @@ int main()
             
             text.setFillColor(sf::Color::Red);
             text.setString("Setup Mode ON - Press Enter to play");
-                
+            window.draw(infos);
         }
         else{    
             text.setFillColor(sf::Color::Green);

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 
 #include <vector>
@@ -128,6 +129,42 @@ class Game{
                 }
             }
             setup_mode =1;
+        }
+
+        void LoadMap(){
+            char ch;
+            fstream fin("pattern.txt", fstream::in);
+            int i = 0;
+            int j =0;
+            while (fin >> noskipws >> ch) {
+                if(ch == '1'){
+                    map[i][j] = 1;
+                    j++;
+                }
+                else if(ch == '0'){
+                    map[i][j] = 0;
+                    j++;
+
+                }
+                else if (ch == '\n'){
+                    i++;
+                    j =0;
+                }
+                    
+                
+            }
+        }
+
+        void SaveMap(){
+            ofstream myfile;
+            myfile.open ("pattern.txt");
+            for(int i =0;i<N;i++){
+                for(int j=0;j<M;j++){
+                    myfile << map[i][j];
+                }
+                myfile << "\n";
+            }
+            myfile.close();
         }
 
 };
