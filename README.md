@@ -1,4 +1,4 @@
-# GoL
-Implémentation du "Game of Life" de Conway avec SFML. <br />
-Editeur intégré <br />
+# Game 
+SFML John Conway "Game of Life" implementation <br />
+Events managed editor <br />
 ![alt-text](link)
