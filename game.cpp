@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string> 
 #include <SFML/Graphics.hpp>
 
 #include <vector>
@@ -13,9 +14,10 @@ class Game{
     private:
         int map[N][M];
         int setup_mode;
-
+        int time;
     public: 
         Game(){
+            time = 0;
             for(int i=0;i<N;i++){
                 for(int j =0;j<N;j++){
                     map[i][j]=0;
@@ -25,6 +27,8 @@ class Game{
         }
 
         Game(int inimap[N][M]){
+            time = 0;
+
             for(int i=0;i<N;i++){
                 for(int j =0;j<N;j++){
                     map[i][j]=inimap[i][j];
@@ -33,7 +37,12 @@ class Game{
             setup_mode =0;
 
         }
-
+        int Get_Time(){
+            return time;
+        }
+        void Set_Time(int val){
+            time = val;
+        }
         int Get_Map_Element(int i, int j){
             return map[i][j];
 
@@ -77,7 +86,9 @@ class Game{
             int res = 0;
             for(int k=-1;k<=1;k++){
                 for(int l =-1;l<=1;l++){
-                    res += Get_Map_Element(i+k,j+l);
+                    if ((i+k>=0)&&(i+k<N)&&(j+l>=0)&&(j+l<M)){
+                        res += Get_Map_Element(i+k,j+l);
+                    }
                 }
             }
             return res - Get_Map_Element(i,j);

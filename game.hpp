@@ -7,6 +7,8 @@
 class Game {
     private:
         int map[N][M];
+        int setup_mode;
+        int time;
     public:
         Game();
         Game(int inimap[N][M]);
@@ -20,7 +22,10 @@ class Game {
         int Get_setup_mode();
         void Set_setup_mode(int val);
         void Reset();
-        void SaveMap()
+        void SaveMap();
+        void LoadMap();
+        int Get_Time();
+        void Set_Time();
 
 
 };

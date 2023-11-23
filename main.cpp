@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "game.cpp"
+#include <string> 
 #include<vector>
 #define N 96
 #define M 54
@@ -16,29 +17,40 @@ int main()
     sf::Font boldfont;
     if (!boldfont.loadFromFile("SpaceMono-Bold.ttf"))
     {
-        cout << "font loading error" << endl;
+        cout << "bold font loading error" << endl;
     }
+
+    sf::Font regfont;
+    if (!regfont.loadFromFile("SpaceMono-Regular.ttf"))
+    {
+        cout << "regfont loading error" << endl;
+    }
+
 
     sf::Text text;
     sf::Text infos;
+    sf::Text iter;
 
     // select the font
     text.setFont(boldfont); // font is a sf::Font
-    infos.setFont(boldfont);
+    infos.setFont(regfont);
+    iter.setFont(regfont);
 
     // set the string to display
     text.setString("Setup Mode ON");
     infos.setString("Spacebar to clear\nS to save pattern\nL to load pattern");
-
+    
     // set the character size
     text.setCharacterSize(24); // in pixels, not points!
     infos.setCharacterSize(16); // in pixels, not points!
+    iter.setCharacterSize(24); // in pixels, not points!
 
     text.setPosition(20,14);
-    infos.setPosition(20,938);
+    infos.setPosition(20,936);
+    iter.setPosition(1568,954);
 
     int mod = 0;
-    int periode =1;
+    float periode =0.2;
 
     Game game;
     float lastupdate= 0;
@@ -97,7 +109,8 @@ int main()
         game.Display(window);
 
         if(game.Get_setup_mode()==0){
-            if((((int)elapsed.asSeconds())%periode==0)&&(elapsed.asSeconds()-lastupdate>=1)){
+            if((elapsed.asSeconds()-lastupdate>=periode)){
+                game.Set_Time(game.Get_Time()+1);
                 game.Update();
                 lastupdate=elapsed.asSeconds();
             }}
@@ -114,6 +127,8 @@ int main()
 
         }
         window.draw(text);
+        iter.setString("Iteration : " + to_string(game.Get_Time()));
+        window.draw(iter);
 
         
         window.display();
