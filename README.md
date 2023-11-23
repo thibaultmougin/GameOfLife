@@ -6,4 +6,4 @@ Install SFML on Linux using
 ```
 sudo apt-get install libsfml-dev
 ```
-![alt-text](link)
+![alt-text](https://github.com/thibaultmougin/GameOfLife/blob/main/demo.gif)
