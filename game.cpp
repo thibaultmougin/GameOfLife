@@ -121,4 +121,13 @@ class Game{
             setup_mode = val;
         }
 
+        void Reset(){
+            for(int i=0;i<N;i++){
+                for(int j =0;j<N;j++){
+                    map[i][j]=0;
+                }
+            }
+            setup_mode =1;
+        }
+
 };

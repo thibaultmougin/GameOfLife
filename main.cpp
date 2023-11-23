@@ -10,8 +10,27 @@ using namespace std;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "The Game of Life");
     sf::Clock clock;
+
+    sf::Font boldfont;
+    if (!boldfont.loadFromFile("SpaceMono-Bold.ttf"))
+    {
+        cout << "font loading error" << endl;
+    }
+
+    sf::Text text;
+
+    // select the font
+    text.setFont(boldfont); // font is a sf::Font
+
+    // set the string to display
+    text.setString("Setup Mode ON");
+
+    // set the character size
+    text.setCharacterSize(32); // in pixels, not points!
+
+    text.setPosition(32,32);
 
     int mod = 0;
     int periode =1;
@@ -44,6 +63,9 @@ int main()
                         game.Set_setup_mode(0);
 
                     }
+                    if ((game.Get_setup_mode())&& (event.key.code == sf::Keyboard::Space)){
+                        game.Reset();
+                    }
                 }
             if ((event.type == sf::Event::MouseButtonPressed)&&(game.Get_setup_mode())){
                 if (event.mouseButton.button == sf::Mouse::Right)
@@ -68,6 +90,19 @@ int main()
                 lastupdate=elapsed.asSeconds();
             }}
         
+        if(game.Get_setup_mode()==1){
+            
+            text.setFillColor(sf::Color::Red);
+            text.setString("Setup Mode ON - Press Enter to play");
+                
+        }
+        else{    
+            text.setFillColor(sf::Color::Green);
+            text.setString("Setup Mode OFF - Press Escape to edit");
+
+        }
+        window.draw(text);
+
         
         window.display();
     }

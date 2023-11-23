@@ -19,5 +19,6 @@ class Game {
         int Get_setup_mode();
         void Set_setup_mode(int val);
         void SetUp();
+        void Reset();
 
 };
