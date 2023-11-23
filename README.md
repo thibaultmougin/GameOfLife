@@ -1,7 +1,7 @@
 # GameOfLife
 
-SFML John Conway "Game of Life" implementation <br />
-Events managed editor <br /> <br />
+John Conway "Game of Life" C++/SFML implementation <br />
+Pattern editing/saving/loading<br /> <br />
 Install SFML on Linux using
 ```
 sudo apt-get install libsfml-dev
