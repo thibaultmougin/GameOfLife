@@ -1,8 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include "game.cpp"
 #include<vector>
-#define N 192
-#define M 108
+#define N 96
+#define M 54
+#define C 20
 
 using namespace std;
 
@@ -18,18 +19,9 @@ int main()
     Game game;
     float lastupdate= 0;
 
-    game.Set_Map_Element(63,64,1);
-    game.Set_Map_Element(64,64,1);
-    game.Set_Map_Element(65,64,1);
-    game.Set_Map_Element(65,65,1);
-    game.Set_Map_Element(66,65,1);
-    game.Set_Map_Element(66,66,1);
-    game.Set_Map_Element(66,67,1);
-
-    game.Set_Map_Element(86,65,1);
-    game.Set_Map_Element(87,65,1);
-    game.Set_Map_Element(88,65,1);
     
+    
+    game.Set_setup_mode(1);
 
     while (window.isOpen())
     {
@@ -39,16 +31,43 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (event.type == sf::Event::KeyPressed)
+                {
+                    if (event.key.code == sf::Keyboard::Escape)
+                    {
+                        game.Set_setup_mode(1);
+
+                    }
+                    if (event.key.code == sf::Keyboard::Enter)
+                    {
+                        game.Set_setup_mode(0);
+
+                    }
+                }
+            if ((event.type == sf::Event::MouseButtonPressed)&&(game.Get_setup_mode())){
+                if (event.mouseButton.button == sf::Mouse::Right)
+                {
+                    game.Set_Map_Element((int)event.mouseButton.x/C,(int)event.mouseButton.y/C,0);
+                }
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    game.Set_Map_Element((int)event.mouseButton.x/C,(int)event.mouseButton.y/C,1);
+
+                }
+                    }
         }
 
         window.clear();
         
         game.Display(window);
 
-        if((((int)elapsed.asSeconds())%periode==0)&&(elapsed.asSeconds()-lastupdate>=1)){
-            game.Update();
-            lastupdate=elapsed.asSeconds();
-        }
+        if(game.Get_setup_mode()==0){
+            if((((int)elapsed.asSeconds())%periode==0)&&(elapsed.asSeconds()-lastupdate>=1)){
+                game.Update();
+                lastupdate=elapsed.asSeconds();
+            }}
+        
         
         window.display();
     }

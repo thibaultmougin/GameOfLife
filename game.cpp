@@ -4,13 +4,14 @@
 #include <vector>
 
 using namespace std;
-#define N 192
-#define M 108
+#define N 96
+#define M 54
+#define C 20
 
 class Game{
     private:
         int map[N][M];
-
+        int setup_mode;
 
     public: 
         Game(){
@@ -19,6 +20,7 @@ class Game{
                     map[i][j]=0;
                 }
             }
+            setup_mode =1;
         }
 
         Game(int inimap[N][M]){
@@ -27,6 +29,8 @@ class Game{
                     map[i][j]=inimap[i][j];
                 }
             }
+            setup_mode =0;
+
         }
 
         int Get_Map_Element(int i, int j){
@@ -40,16 +44,31 @@ class Game{
 
         void Display(sf::RenderWindow &w){
 
-            sf::RectangleShape carre (sf::Vector2f(10, 10));
-        
+            sf::RectangleShape carre (sf::Vector2f(C, C));
+            sf::RectangleShape ligne (sf::Vector2f(1920,2));
+            sf::RectangleShape col (sf::Vector2f(2,1080));
+            col.setFillColor(sf::Color(32, 32, 32));
+            ligne.setFillColor(sf::Color(32, 32, 32));
+
             for(int i =0;i<N;i++){
+                
                 for(int j=0;j<M;j++){
                     if (Get_Map_Element(i,j)){
-                        carre.setPosition(10*i, 10*j);
+                        carre.setPosition(C*i, C*j);
                         w.draw(carre);
 
                     }
                     }
+            }
+            for(int i =0;i<N;i++){
+
+                col.setPosition(C*i-1, 0);
+                w.draw(col);
+                if(i<M){
+                    ligne.setPosition(0,C*i-1);
+                    w.draw(ligne);
+
+                }
             }
             }
 
@@ -94,5 +113,12 @@ class Game{
             }
         }
         
+        int Get_setup_mode(){
+            return setup_mode;
+        }
+        
+        void Set_setup_mode(int val){
+            setup_mode = val;
+        }
 
 };
