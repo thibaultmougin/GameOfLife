@@ -2,7 +2,7 @@
 
 John Conway "Game of Life" C++/SFML implementation <br />
 Pattern editing/saving/loading<br /> <br />
-Install SFML on Linux using
+Install SFML on Debian using
 ```
 sudo apt-get install libsfml-dev
 ```
